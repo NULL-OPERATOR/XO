@@ -1,4 +1,8 @@
-class GridSetup
+class Grid
+  def self.whole_grid
+    [1,2,3,4,5,6,7,8,9]
+  end
+
   def self.corners
     [1,3,7,9]
   end
