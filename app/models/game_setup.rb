@@ -1,6 +1,9 @@
+require_relative "game"
+require_relative "grid"
+
 class GameSetup
   attr_reader :p1, :p2
-  def initialize(game, grid)
+  def initialize(game = Game, grid = Grid)
     @game = game
     @grid = grid
   end
