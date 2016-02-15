@@ -7,4 +7,9 @@ class XO < Sinatra::Base
     @game = GameSetup.new
     erb :game_start
   end
+
+  post '/new' do
+    mode = params[:mode].split(",")
+    redirect '/'
+  end
 end
