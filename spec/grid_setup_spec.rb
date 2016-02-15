@@ -1,3 +1,4 @@
+require "spec_helper"
 require "grid_setup"
 
 describe GridSetup do
@@ -14,3 +15,4 @@ describe GridSetup do
   it("should return a list of corners") do
     expect(setup.center).to eq([5])
   end
+end
