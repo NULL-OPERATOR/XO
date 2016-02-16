@@ -1,5 +1,4 @@
-require "spec_helper"
-require "game_setup"
+require_relative "../app/models/game_setup"
 
 describe GameSetup do
   let(:grid)   { class_double("Grid") }

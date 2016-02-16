@@ -1,5 +1,5 @@
 require "spec_helper"
-require "grid"
+require_relative "../app/models/grid"
 
 describe Grid do
   let(:grid)       { Grid }
