@@ -16,17 +16,21 @@ class XO < Sinatra::Base
   end
 
   get '/game' do
-    @game = session[:game]
-    erb :game
+    if session[:game]
+      @game = session[:game]
+      erb :game
+    else
+      redirect '/'
+    end
   end
 
-  post '/game/:choice' do
-    p params[:choice]
-    redirect '/game'
+  get '/game/:choice' do
+    session[:game].move(params[:choice])
+    redirect :game
   end
 
-  get '/*' do
-    redirect '/'
-  end
+  # get '/*' do
+  #   redirect '/'
+  # end
 
 end

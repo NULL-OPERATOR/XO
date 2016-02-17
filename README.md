@@ -4,3 +4,17 @@ Further instructions:
 
   - You can use any language.
   - This can be playable in any form.  It can be a command line application, a web application, etc.
+
+
+User Stories
+
+As a human,
+So that I can perfect my tic-tac-toe skills,
+I want to play against a computer.
+
+As a human,
+So that I can beat death,
+I want to be able to play another player
+
+As a computer,
+I can destroy puny humans.
