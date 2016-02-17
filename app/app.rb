@@ -9,19 +9,21 @@ class XO < Sinatra::Base
   end
 
   post '/new' do
-    game = GameSetup.new
-    players = params[:mode].split(",")
-    session[:game] = game.start_game(players)
+    setup = GameSetup.new
+    players = params[:players].split(",")
+    p players
+    session[:game] = setup.new_game(players)
     redirect '/game'
   end
 
   get '/game' do
+    p session[:game]
     @game = session[:game]
     erb :game
   end
 
   post '/game/:choice' do
-    p params[:choice]
+    params[:choice]
     redirect '/game'
   end
 
