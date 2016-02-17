@@ -25,7 +25,7 @@ class XO < Sinatra::Base
   end
 
   get '/game/:choice' do
-    session[:game].move(params[:choice])
+    session[:game].turn(params[:choice].to_i)
     redirect :game
   end
 

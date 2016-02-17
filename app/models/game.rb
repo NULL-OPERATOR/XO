@@ -14,7 +14,6 @@ class Game
     switch_player
   end
 
-
   private
 
   def available?(move)
@@ -31,6 +30,14 @@ class Game
 
   def ai_turn(move)
     @moves[move] #add ai choice
+  end
+
+  def switch_player
+    if @turn == @p1
+      @turn = @p2
+    else
+      @turn = @p1
+    end
   end
 
 
