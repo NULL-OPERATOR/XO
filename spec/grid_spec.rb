@@ -6,7 +6,7 @@ describe Grid do
   let(:whole_grid) { [0,1,2,3,4,5,6,7,8] }
   let(:corners)    { [0,2,6,8] }
   let(:edges)      { [1,3,5,7] }
-  let(:center)     { [4] }
+  let(:center)     { 4 }
 
   it("should return the whole grid") do
     expect(grid.whole_grid).to eq(whole_grid)

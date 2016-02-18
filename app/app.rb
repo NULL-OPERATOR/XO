@@ -1,5 +1,8 @@
+ENV['RACK_ENV'] ||= 'development'
+
 require 'sinatra/base'
 require './app/models/game_setup'
+require 'tilt/erb'
 
 class XO < Sinatra::Base
   use Rack::Session::Pool
@@ -27,6 +30,11 @@ class XO < Sinatra::Base
   get '/game/:move' do
     move = params[:move].to_i
     session[:game].try_move(move)
+    if session[:game].turn[:mode] == 'c'
+      p 'yass'
+      sleep 1
+      redirect '/game/0'
+    end
     redirect '/game'
   end
 

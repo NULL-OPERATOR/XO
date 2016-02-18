@@ -12,6 +12,6 @@ class Grid
   end
 
   def self.center
-    [4]
+    4
   end
 end

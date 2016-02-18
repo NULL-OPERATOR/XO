@@ -1,8 +1,10 @@
-<% if @game.turn[:win] %>
-  GAME OVER
-  <%= @game.turn[:choice] %> WINS
-<%else %>
-  <% @game.moves.each.with_index do |square, index| %>
-    <a href="/game/<%= index %>"><%= square + "#{ index}" %></a>
+<% @game.moves.each.with_index do |square, index| %>
+  <a id=<%= "square-#{index}" %> class="square" href="/game/<%= index %>"><%= square + "#{ index}" %></a>
+  <% if @game.turn[:win] %>
+    <div id="win-overlay">
+      GAME OVER
+      <%= @game.turn[:choice] %>
+      WINS
+    </div>
   <% end %>
 <% end %>
