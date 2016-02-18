@@ -1,3 +1,8 @@
-<% @game.moves.each.with_index do |square, index| %>
-  <a href="/game/<%= index %>"><%= square + "#{ index}" %></a>
+<% if @game.turn[:win] %>
+  GAME OVER
+  <%= @game.turn[:choice] %> WINS
+<%else %>
+  <% @game.moves.each.with_index do |square, index| %>
+    <a href="/game/<%= index %>"><%= square + "#{ index}" %></a>
+  <% end %>
 <% end %>
