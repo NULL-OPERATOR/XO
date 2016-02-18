@@ -1,26 +1,31 @@
 class Game
   attr_reader :moves
-  def initialize(grid, players)
-    grid_size = grid.whole_grid.length
-    @moves = Array.new(grid_size) { " " }
+  def initialize(grid, rules, players)
+    @moves = setup_moves(grid)
     @p1 = { mode: players[0], choice: players[1] }
     @p2 = { mode: players[2], choice: players[3] }
     @turn = @p1
+    @win_conditions = rules.win_conditions
   end
 
   def turn(move)
     return unless available?(move)
-    make_turn(move)
+    setup_turn(move)
     switch_player
   end
 
   private
 
+  def setup_moves(grid)
+    grid_size = grid.whole_grid.length
+    Array.new(grid_size) { " " }
+  end
+
   def available?(move)
     @moves[move] == " "
   end
 
-  def make_turn(move)
+  def setup_turn(move)
     @turn[:mode] == 'p' ? player_turn(move) : ai_turn(move)
   end
 
@@ -33,12 +38,7 @@ class Game
   end
 
   def switch_player
-    if @turn == @p1
-      @turn = @p2
-    else
-      @turn = @p1
-    end
+    @turn == @p1 ? @turn = @p2 : @turn = @p1
   end
-
 
 end
