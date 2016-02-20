@@ -30,11 +30,6 @@ class XO < Sinatra::Base
   get '/game/:move' do
     move = params[:move].to_i
     session[:game].try_move(move)
-    if session[:game].turn[:mode] == 'c'
-      p 'yass'
-      sleep 1
-      redirect '/game/0'
-    end
     redirect '/game'
   end
 

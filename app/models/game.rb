@@ -31,12 +31,14 @@ class Game
     Array.new(grid_size) { " " }
   end
 
+
+
   def move_not_available?(move)
     @moves[move] != " "
   end
 
   def make_move(move)
-    @turn[:mode] == 'p' ? player_move(move) : ai_move
+    @turn[:mode] == "p" ? player_move(move) : ai_move
   end
 
   def player_move(move)
@@ -44,7 +46,7 @@ class Game
   end
 
   def ai_move
-    @moves[@ai.move(@moves)] = @turn[:choice]
+    @moves[@ai.move(@moves, @turn)] = @turn[:choice]
   end
 
   def switch_player
@@ -52,13 +54,20 @@ class Game
   end
 
   def game_over_check
+    board_full || winning_move
+  end
+
+  def winning_move
     @win_conditions.each do |i|
       check = @moves[i[0]] + @moves[i[1]] + @moves[i[2]]
-      if check == 'xxx' || check == 'ooo'
+      if check == "xxx" || check == "ooo"
         switch_player
         @turn[:win] = true
       end
     end
   end
 
+  def board_full
+    !@moves.join.include?(" ")
+  end
 end
