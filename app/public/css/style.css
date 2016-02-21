@@ -1,1 +1,29 @@
+@import url("//fonts.googleapis.com/css?family=Montserrat:400,700");
 
+html {
+    margin: 0;
+    height: 100%;
+}
+
+body{
+  font-family: Montserrat;
+  background: linear-gradient( to bottom right, rgba(211, 18, 80, 0.69), rgba(50, 149, 168, 0.84));
+  /*background-repeat: no-repeat;*/
+  /*background-size: cover;*/
+  text-align: center;
+}
+.square {
+  display: inline-block;
+  background: rgba(0, 0, 0, .3);
+  border: rgba(0, 0, 0, .8);
+  width: 7em;
+  height: 7em;
+  margin: 1px;
+}
+
+.board {
+  width: 22em;
+}
+
+.board-container {
+}

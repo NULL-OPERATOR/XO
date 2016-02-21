@@ -3,7 +3,7 @@ class Game
   def initialize(grid, rules, players, ai)
     setup_game_status(grid, rules)
     setup_player_status(players)
-    @ai = ai.new(grid, @win_conditions)
+    @ai = ai.new(grid, @win_moves)
   end
 
   def try_move(move = 0)
@@ -22,7 +22,7 @@ class Game
   end
 
   def setup_game_status(grid, rules)
-    @win_conditions = rules.win_conditions
+    @win_moves = rules.win_conditions
     @moves = setup_moves(grid)
   end
 
@@ -30,8 +30,6 @@ class Game
     grid_size = grid.whole_grid.length
     Array.new(grid_size) { " " }
   end
-
-
 
   def move_not_available?(move)
     @moves[move] != " "
@@ -46,7 +44,8 @@ class Game
   end
 
   def ai_move
-    @moves[@ai.move(@moves, @turn)] = @turn[:choice]
+    choice = @turn[:choice]
+    @moves[@ai.move(@moves, choice)] = choice
   end
 
   def switch_player
@@ -58,7 +57,7 @@ class Game
   end
 
   def winning_move
-    @win_conditions.each do |i|
+    @win_moves.each do |i|
       check = @moves[i[0]] + @moves[i[1]] + @moves[i[2]]
       if check == "xxx" || check == "ooo"
         switch_player

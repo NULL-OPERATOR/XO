@@ -12,9 +12,14 @@ As a human,
 So that I can perfect my tic-tac-toe skills,
 I want to play against a computer.
 
-As a human,
-So that I can beat death,
-I want to be able to play another player
+As a proto-human,
+So that I can cheat death,
+I want hail a storm of crows
+
+As a Spacefaring User
+Open the pod bay doors, HAL.
+I'm sorry, Dave. I'm afraid I can't do that.
 
 As a computer,
-I can destroy puny humans.
+Hello Dave,
+I win.

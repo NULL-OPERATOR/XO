@@ -1,10 +1,20 @@
-<% @game.moves.each.with_index do |square, index| %>
-  <a id=<%= "square-#{index}" %> class="square" href="/game/<%= index %>"><%= square + "#{ index}" %></a>
+<!-- <section class="board-container"> -->
   <% if @game.turn[:win] %>
-    <div id="win-overlay">
+    <!-- <div id="win-overlay"> -->
       GAME OVER
-      <%= @game.turn[:choice] %>
-      WINS
+      <div class="board">
+        <% @game.moves.each do |square| %>
+        <a class="btn square"><%= square %></a>
+        <% end %>
+      </div>
+      <!-- <%= @game.turn[:choice] %> -->
+      <!-- WINS -->
+    <!-- </div> -->
+    <% else %>
+    <div class="board">
+      <% @game.moves.each.with_index do |square, index| %>
+      <a id=<%= "square-#{index}" %> class="btn square" href="/game/<%= index %>">_<%= square %></a>
+      <% end %>
     </div>
   <% end %>
-<% end %>
+<!-- </section> -->
