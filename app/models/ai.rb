@@ -3,6 +3,7 @@ class AI
   def initialize(grid, win_moves)
     @grid = grid
     @win_moves = win_moves
+    @opposite_corners = @grid.corners.reverse
   end
 
   def move(moves, player)
@@ -27,12 +28,9 @@ class AI
       actual = get_actual(move)
       actual.each.with_index do |letter, index|
         check = actual.clone
-        if letter == " "
-          check[index] = player
-          if check.join == player * 3
-            return move[index]
-          end
-        end
+        next if letter != "-"
+        check[index] = player
+        return move[index] if check.join == player * 3
       end
     end
     nil
@@ -43,42 +41,70 @@ class AI
   end
 
   def create_fork
+    # count = count_moves
+    # corners_taken = count_corners_taken
+    # if count == 2
+    #   if (corners_taken >= 1) && (@moves[4] != "-")
+    #     return opposite_corner
+    #   elsif @moves[1] != "-"
+    #     return 3
+    #   elsif @moves[3] != "-"
+    #     return 1
+    #   end
+    # end
   end
 
   def block_forks
-    count = @moves.count{ |c| c == 'x' || c == 'o'}
-    corners_taken = @grid.corners.count{ |x| @moves[x] == "x" || @moves[x] == 'o'}
-    if count == 3
-      if corners_taken == 2
-        return empty_side
-      elsif @moves[5] != " " && @moves[7] != " "
-        return 8
-      elsif @moves[2] != " " && @moves[7] != " "
-        return 8
-      elsif @moves[5] != " " && @moves[6] != " "
-        return 8
-      end
-    end
-    nil
+    count_moves == 3 ? block_fork_1 || block_fork_2 : nil
+  end
+
+  def block_fork_1
+    return empty_side if (count_corners_taken == 2) && (@moves[4] == @player)
+  end
+
+  def block_fork_2
+    return 8 if moves_taken?(5,7) || moves_taken?(2,7) || moves_taken?(5,6)
+  end
+
+  def moves_taken?(move1, move2)
+    @moves[move1] != "-" && @moves[move2] != "-"
+  end
+
+  def count_moves
+    @moves.count{ |c| c == 'x' || c == 'o'}
+  end
+
+  def count_corners_taken
+    @grid.corners.count{ |x| @moves[x] == "x" || @moves[x] == 'o'}
   end
 
   def center
-    @moves[4] == " " ? 4 : nil
+    @moves[4] == "-" && count_moves >= 1 ? 4 : nil
   end
 
   def opposite_corner
-    @grid.corners.each do |corner|
-      if @moves[corner] == swap_player
-        case corner
-        when corner == 2 && @moves[6] == " " then return 6
-        when corner == 6 && @moves[2] == " " then return 2
-        when corner == 0 && @moves[8] == " " then return 8
-        when corner == 8 && @moves[0] == " " then return 0
-        end
-      end
+    @grid.corners.each.with_index do |corner, index|
+      possible_move = @opposite_corners[index]
+      next if @moves[corner] == "-"
+      next if @moves[possible_move] != "-"
+      return possible_move
     end
     nil
   end
+
+  # def opposite_corner
+  #   @grid.corners.each do |corner|
+  #     if @moves[corner] == swap_player
+  #       case corner
+  #       when corner == 2 && @moves[6] == "-" then return 6
+  #       when corner == 6 && @moves[2] == "-" then return 2
+  #       when corner == 0 && @moves[8] == "-" then return 8
+  #       when corner == 8 && @moves[0] == "-" then return 0
+  #       end
+  #     end
+  #   end
+  #   nil
+  # end
 
   def empty_corner
     search_array(@grid.corners)
@@ -89,7 +115,7 @@ class AI
   end
 
   def search_array(arr)
-    arr.each{ |i| return i if @moves[i] == " " }
+    arr.each{ |i| return i if @moves[i] == "-" }
     nil
   end
 

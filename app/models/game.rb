@@ -28,11 +28,11 @@ class Game
 
   def setup_moves(grid)
     grid_size = grid.whole_grid.length
-    Array.new(grid_size) { " " }
+    Array.new(grid_size) { "-" }
   end
 
   def move_not_available?(move)
-    @moves[move] != " "
+    @moves[move] != "-"
   end
 
   def make_move(move)
@@ -67,6 +67,6 @@ class Game
   end
 
   def board_full
-    !@moves.join.include?(" ")
+    !@moves.join.include?("-")
   end
 end

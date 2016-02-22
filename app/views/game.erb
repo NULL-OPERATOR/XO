@@ -1,6 +1,7 @@
 <!-- <section class="board-container"> -->
   <% if @game.turn[:win] %>
     <!-- <div id="win-overlay"> -->
+
       GAME OVER
       <div class="board">
         <% @game.moves.each do |square| %>
@@ -13,7 +14,7 @@
     <% else %>
     <div class="board">
       <% @game.moves.each.with_index do |square, index| %>
-      <a id=<%= "square-#{index}" %> class="btn square" href="/game/<%= index %>">_<%= square %></a>
+      <a id=<%= "square-#{index}" %> class="square" href="/game/<%= index %>"><%= square %></a>
       <% end %>
     </div>
   <% end %>
