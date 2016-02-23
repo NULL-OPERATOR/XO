@@ -9,7 +9,7 @@ The user can choose the game type (human v. computer, human v. human, or compute
 
 The computer player will never lose and wins whenever possible.  
 
-**i think XD*
+**hopefully*
 
 ## User Stories
 ```
