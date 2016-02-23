@@ -1,4 +1,3 @@
-
 class AI
   def initialize(grid, win_moves)
     @grid = grid

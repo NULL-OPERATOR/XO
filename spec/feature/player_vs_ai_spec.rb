@@ -30,9 +30,7 @@ feature "human vs ai game mechanics: " do
 
   scenario "computer draw" do
     # [4,2,6,5].each do |i|
-    #   find('#continue-btn').click
-    #   find("#square-#{i}").click
-    # end
+  
     # find('#continue-btn').click
     # expect(page).to have_content("GAME OVER")
     # expect(page).to have_content("COMPUTER X WINS")
