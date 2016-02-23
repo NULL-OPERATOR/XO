@@ -1,8 +1,13 @@
 ENV['RACK_ENV'] ||= 'development'
 
 require 'sinatra/base'
-require './app/models/game_setup'
 require 'tilt/erb'
+require './app/models/game_setup'
+
+# require_relative 'controllers/index'
+# require_relative 'controllers/new_game'
+# require_relative 'controllers/game'
+# require_relative 'controllers/game_move'
 
 class XO < Sinatra::Base
   use Rack::Session::Pool
@@ -19,22 +24,33 @@ class XO < Sinatra::Base
   end
 
   get '/game' do
-    if session[:game]
-      @game = session[:game]
-      erb :game
-    else
-      redirect '/'
-    end
+    redirect '/' unless session[:game]
+    @game = session[:game]
+    erb :game
   end
 
-  get '/game/:move' do
+  get '/player/:move' do
     move = params[:move].to_i
-    session[:game].try_move(move)
+    session[:game].player_move(move)
     redirect '/game'
   end
 
-  # get '/*' do
-  #   redirect '/'
+  get '/ai_move' do
+    session[:game].ai_move
+    redirect '/game'
+  end
+
+  get '/*' do
+    redirect '/'
+  end
+
+  # helpers do
+  #   def ai_next
+  #     session[:game].turn[:choice] == 'c'
+  #   end
   # end
+
+
+
 
 end

@@ -1,23 +1,33 @@
 class Game
-  attr_reader :moves, :turn, :p1
+  attr_reader :moves, :turn, :p1, :game_over
   def initialize(grid, rules, players, ai)
     setup_game_status(grid, rules)
     setup_player_status(players)
     @ai = ai.new(grid, @win_moves)
   end
 
-  def try_move(move = 0)
-    return if move_not_available?(move)
-    make_move(move)
+  def player_move(move)
+    return unless move_available?(move)
+    make_player_move(move)
     switch_player
     game_over_check
+  end
+
+  def ai_move
+    make_ai_move
+    switch_player
+    game_over_check
+  end
+
+  def ai_next?
+    @turn[:player] == 'c'
   end
 
   private
 
   def setup_player_status(players)
-    @p1 = { mode: players[0], choice: players[1], win: false}
-    @p2 = { mode: players[2], choice: players[3], win: false}
+    @p1 = { player: players[0], choice: players[1], win: false}
+    @p2 = { player: players[2], choice: players[3], win: false}
     @turn = @p1
   end
 
@@ -31,21 +41,18 @@ class Game
     Array.new(grid_size) { "-" }
   end
 
-  def move_not_available?(move)
-    @moves[move] != "-"
+  def move_available?(move)
+    @moves[move] == "-"
   end
 
-  def make_move(move)
-    @turn[:mode] == "p" ? player_move(move) : ai_move
-  end
-
-  def player_move(move)
+  def make_player_move(move)
     @moves[move] = @turn[:choice]
   end
 
-  def ai_move
+  def make_ai_move
     choice = @turn[:choice]
-    @moves[@ai.move(@moves, choice)] = choice
+    move = @ai.move(@moves, choice)
+    @moves[move] = choice
   end
 
   def switch_player
@@ -59,14 +66,15 @@ class Game
   def winning_move
     @win_moves.each do |i|
       check = @moves[i[0]] + @moves[i[1]] + @moves[i[2]]
-      if check == "xxx" || check == "ooo"
-        switch_player
-        @turn[:win] = true
-      end
+      next unless check == "xxx" || check == "ooo"
+      switch_player
+      @game_over = true
     end
   end
 
   def board_full
-    !@moves.join.include?("-")
+    if !@moves.join.include?("-")
+      @game_over = true
+    end
   end
 end

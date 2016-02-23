@@ -15,6 +15,14 @@ class AI
 
   private
 
+  def move_free?(move)
+    @moves[move] == "-"
+  end
+
+  def swap_player
+    @player == 'x' ? 'o' : 'x'
+  end
+
   def win
     find_winner(@player)
   end
@@ -41,17 +49,16 @@ class AI
   end
 
   def create_fork
-    # count = count_moves
-    # corners_taken = count_corners_taken
-    # if count == 2
-    #   if (corners_taken >= 1) && (@moves[4] != "-")
-    #     return opposite_corner
-    #   elsif @moves[1] != "-"
-    #     return 3
-    #   elsif @moves[3] != "-"
-    #     return 1
-    #   end
-    # end
+    count_moves == 2 ? fork_1 || fork_2 : nil
+  end
+
+  def fork_1
+    return opposite_corner if corners_taken >= 1 && !move_free?(4)
+  end
+
+  def fork_2
+    return 3 if !move_free?(1)
+    return 1 if !move_free?(3)
   end
 
   def block_forks
@@ -59,7 +66,7 @@ class AI
   end
 
   def block_fork_1
-    return empty_side if (count_corners_taken == 2) && (@moves[4] == @player)
+    return empty_side if (corners_taken == 2) && (@moves[4] == @player)
   end
 
   def block_fork_2
@@ -67,44 +74,30 @@ class AI
   end
 
   def moves_taken?(move1, move2)
-    @moves[move1] != "-" && @moves[move2] != "-"
+    !move_free?(move1) && !move_free?(move2)
   end
 
   def count_moves
     @moves.count{ |c| c == 'x' || c == 'o'}
   end
 
-  def count_corners_taken
+  def corners_taken
     @grid.corners.count{ |x| @moves[x] == "x" || @moves[x] == 'o'}
   end
 
   def center
-    @moves[4] == "-" && count_moves >= 1 ? 4 : nil
+    move_free?(4) && count_moves >= 1 ? 4 : nil
   end
 
   def opposite_corner
     @grid.corners.each.with_index do |corner, index|
       possible_move = @opposite_corners[index]
-      next if @moves[corner] == "-"
-      next if @moves[possible_move] != "-"
+      next if move_free?(corner)
+      next if !move_free?(possible_move)
       return possible_move
     end
     nil
   end
-
-  # def opposite_corner
-  #   @grid.corners.each do |corner|
-  #     if @moves[corner] == swap_player
-  #       case corner
-  #       when corner == 2 && @moves[6] == "-" then return 6
-  #       when corner == 6 && @moves[2] == "-" then return 2
-  #       when corner == 0 && @moves[8] == "-" then return 8
-  #       when corner == 8 && @moves[0] == "-" then return 0
-  #       end
-  #     end
-  #   end
-  #   nil
-  # end
 
   def empty_corner
     search_array(@grid.corners)
@@ -115,11 +108,7 @@ class AI
   end
 
   def search_array(arr)
-    arr.each{ |i| return i if @moves[i] == "-" }
+    arr.each{ |i| return i if move_free?(i) }
     nil
-  end
-
-  def swap_player
-    @player == 'x' ? 'o' : 'x'
   end
 end
