@@ -4,11 +4,6 @@ require 'sinatra/base'
 require 'tilt/erb'
 require './app/models/game_setup'
 
-# require_relative 'controllers/index'
-# require_relative 'controllers/new_game'
-# require_relative 'controllers/game'
-# require_relative 'controllers/game_move'
-
 class XO < Sinatra::Base
   use Rack::Session::Pool
 
@@ -17,9 +12,10 @@ class XO < Sinatra::Base
   end
 
   post '/new' do
-    game = GameSetup.new
-    players = params[:mode].split(",")
-    session[:game] = game.start_game(players)
+    setup = GameSetup.new
+    players = params[:players].split(",")
+    p players
+    session[:game] = setup.new_game(players)
     redirect '/game'
   end
 
@@ -43,14 +39,4 @@ class XO < Sinatra::Base
   get '/*' do
     redirect '/'
   end
-
-  # helpers do
-  #   def ai_next
-  #     session[:game].turn[:choice] == 'c'
-  #   end
-  # end
-
-
-
-
 end

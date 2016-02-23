@@ -1,4 +1,3 @@
-<!-- <section class="board-container"> -->
 <% if @game.game_over  %>
     <div class="board">
       <% @game.moves.each do |square| %>
@@ -23,8 +22,4 @@
     <a id=<%= "square-#{index}" %> class="square" href="/player/<%= index %>"><%= square %></a>
     <% end %>
   </div>
-  <% if @game.ai_next? %>
-  <% end %>
-
 <% end %>
-<!-- </section> -->

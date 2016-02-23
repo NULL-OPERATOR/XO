@@ -49,5 +49,4 @@ describe Game do
     game.player_move(2)
     expect(game.game_over).to be(true)
   end
-
 end
