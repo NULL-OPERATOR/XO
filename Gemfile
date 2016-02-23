@@ -8,4 +8,5 @@ group :test do
   gem "rspec-sinatra"
   gem "rspec"
   gem "capybara"
+  gem 'coveralls', require: false
 end
