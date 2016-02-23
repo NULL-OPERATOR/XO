@@ -1,18 +1,17 @@
 require_relative "game"
 require_relative "grid"
+require_relative "rules"
+require_relative "ai"
 
 class GameSetup
-  def initialize(game = Game, grid = Grid)
-    @game = game
-    @grid = grid
+  attr_reader :game, :grid, :rules
+  def initialize(game = Game, grid = Grid, rules = Rules, ai = AI)
+    @game  = game
+    @grid  = grid
+    @rules = rules
   end
 
-  # def set_players(p1, p2)
-  #   @p1 = [p1[0], p1]
-  #   @p2 = p2
-  # end
-
-  def new_game(players)
-    @game.new(@grid, players)
+  def start_game(players)
+    @game.new(@grid, @rules, players, AI)
   end
 end

@@ -3,10 +3,10 @@ require_relative "../app/models/grid"
 
 describe Grid do
   let(:grid)       { Grid }
-  let(:whole_grid) { [1,2,3,4,5,6,7,8,9] }
-  let(:corners)    { [1,3,7,9] }
-  let(:edges)      { [2,4,6,8] }
-  let(:center)     { [5] }
+  let(:whole_grid) { [0,1,2,3,4,5,6,7,8] }
+  let(:corners)    { [0,2,6,8] }
+  let(:edges)      { [1,3,5,7] }
+  let(:center)     { 4 }
 
   it("should return the whole grid") do
     expect(grid.whole_grid).to eq(whole_grid)

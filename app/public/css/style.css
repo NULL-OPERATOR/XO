@@ -1,1 +1,61 @@
+@import url("//fonts.googleapis.com/css?family=Montserrat:400,700");
 
+html {
+    margin: 0;
+    height: 100%;
+}
+
+body{
+  font-family: Montserrat;
+  background: linear-gradient( to bottom right, rgba(211, 18, 80, 0.69), rgba(50, 149, 168, 0.84));
+  background-image: linear-gradient(rgba(86, 0, 255, 0.06) 56%, rgba(4, 255, 0, 0.38) 58%);
+  background-size: 1px 3px;
+  /*background-repeat: no-repeat;*/
+  /*background-size: cover;*/
+  text-align: center;
+}
+
+select, button {
+  background: none;
+  outline: none;
+  font-size: 1em;
+}
+
+.square {
+  text-decoration: none;
+  color: darkmagenta;
+  line-height: 1;
+  font-size: 63px;
+  display: inline-block;
+  background: rgba(0, 0, 0, .05);
+  border: rgba(0, 0, 0, .8);
+  width: 1em;
+  height: 1em;
+  margin: 0px;
+}
+
+.board {
+  width: 15em;
+  display: inline-block;
+  padding-top: 35px;
+}
+
+.board-container {
+}
+
+
+/*.glitch{
+  color:#000;
+  font-size:60px;
+  position:absolute;
+  margin:0 auto;
+  text-align:center;
+}*/
+
+/*.square_glitch{
+  background: url(http://cl.ly/image/3S0x440w3g2H/glitch.gif);
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}*/
