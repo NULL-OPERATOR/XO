@@ -12,12 +12,3 @@ class Rules
     ]
   end
 end
-
-# board
-# 0 1 2
-# 3 4 5
-# 6 7 8
-
-# 0x 1o 2x
-# 3x 4o 5o
-# 6o 7x 8x

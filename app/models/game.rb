@@ -20,7 +20,7 @@ class Game
   end
 
   def ai_next?
-    @turn[:player] == 'c'
+    @turn[:player] == :c
   end
 
   private
@@ -38,11 +38,11 @@ class Game
 
   def setup_moves(grid)
     grid_size = grid.whole_grid.length
-    Array.new(grid_size) { "-" }
+    Array.new(grid_size) { :- }
   end
 
   def move_available?(move)
-    @moves[move] == "-"
+    @moves[move] == :-
   end
 
   def make_player_move(move)
@@ -66,7 +66,7 @@ class Game
 
   def winning_move
     @win_moves.each do |i|
-      check = @moves[i[0]] + @moves[i[1]] + @moves[i[2]]
+      check = [@moves[i[0]], @moves[i[1]], @moves[i[2]]].join
       next unless check == "xxx" || check == "ooo"
       switch_player
       @game_over = set_win_message
@@ -74,13 +74,13 @@ class Game
   end
 
   def set_win_message
-    player = @turn[:player] == 'c' ? "COMPUTER" : "PLAYER"
+    player = @turn[:player] == :c ? "COMPUTER" : "PLAYER"
     choice = @turn[:choice].upcase
     "#{player} - #{choice} - WINS"
   end
 
   def board_full
-    if !@moves.join.include?("-")
+    if @moves.count(:-) == 0
       @game_over = "DRAW"
     end
   end

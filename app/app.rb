@@ -15,7 +15,7 @@ class XO < Sinatra::Base
     redirect '/' if params[:players] == nil
 
     setup = GameSetup.new
-    players = params[:players].split(",")
+    players = params[:players].split(",").map{ |x| x.to_sym }
     session[:game] = setup.new_game(players)
     redirect '/game'
   end

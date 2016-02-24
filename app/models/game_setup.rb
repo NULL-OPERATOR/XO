@@ -15,4 +15,12 @@ class GameSetup
   def new_game(players)
     @game.new(@grid, @rules, players, @ai)
   end
+
+  private
+
+    # def setup_player_status(players)
+    #   @p1 = { player: players[0], choice: players[1], win: false}
+    #   @p2 = { player: players[2], choice: players[3], win: false}
+    #   @turn = @p1
+    # end
 end

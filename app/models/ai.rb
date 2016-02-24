@@ -15,11 +15,11 @@ class AI
   private
 
   def move_free?(move)
-    @moves[move] == "-"
+    @moves[move] == :-
   end
 
   def swap_player
-    @player == 'x' ? 'o' : 'x'
+    @player == :x ? :o : :x
   end
 
   def win
@@ -35,16 +35,16 @@ class AI
       actual = get_actual(move)
       actual.each.with_index do |letter, index|
         check = actual.clone
-        next if letter != "-"
+        next if letter != :-
         check[index] = player
-        return move[index] if check.join == player * 3
+        return move[index] if check.count(player) == 3
       end
     end
     nil
   end
 
   def get_actual(move)
-    [@moves[move[0]], @moves[move[1]], @moves[move[2]]]
+    [ @moves[move[0]], @moves[move[1]], @moves[move[2]] ]
   end
 
   def create_fork
@@ -77,11 +77,11 @@ class AI
   end
 
   def count_moves
-    @moves.count{ |c| c == 'x' || c == 'o'}
+    @moves.count{ |c| c == :x || c == :o}
   end
 
   def corners_taken
-    @grid.corners.count{ |x| @moves[x] == "x" || @moves[x] == 'o'}
+    @grid.corners.count{ |x| @moves[x] == :x || @moves[x] == :o}
   end
 
   def center
