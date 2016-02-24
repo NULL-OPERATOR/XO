@@ -9,9 +9,10 @@ class GameSetup
     @game  = game
     @grid  = grid
     @rules = rules
+    @ai    = ai
   end
 
-  def start_game(players)
-    @game.new(@grid, @rules, players, AI)
+  def new_game(players)
+    @game.new(@grid, @rules, players, @ai)
   end
 end

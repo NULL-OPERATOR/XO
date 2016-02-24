@@ -21,7 +21,7 @@ describe GameSetup do
   end
 
   it "should initialize a game" do
-    setup.start_game(players)
+    setup.new_game(players)
     expect(game).to have_received(:new)
   end
 end

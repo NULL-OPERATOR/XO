@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/NULL-OPERATOR/XO.svg?branch=master)](https://travis-ci.org/NULL-OPERATOR/XO)[![Coverage Status](https://coveralls.io/repos/github/NULL-OPERATOR/XO/badge.svg?branch=master)](https://coveralls.io/github/NULL-OPERATOR/XO?branch=master)[![Code Climate](https://codeclimate.com/github/NULL-OPERATOR/XO/badges/gpa.svg)](https://codeclimate.com/github/NULL-OPERATOR/XO)
+[![Build Status](https://travis-ci.org/NULL-OPERATOR/XO.svg?branch=master)](https://travis-ci.org/NULL-OPERATOR/XO) [![Coverage Status](https://coveralls.io/repos/github/NULL-OPERATOR/XO/badge.svg?branch=master)](https://coveralls.io/github/NULL-OPERATOR/XO?branch=master) [![Code Climate](https://codeclimate.com/github/NULL-OPERATOR/XO/badges/gpa.svg)](https://codeclimate.com/github/NULL-OPERATOR/XO)
 
 
 # XO

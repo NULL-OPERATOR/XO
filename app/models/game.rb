@@ -68,13 +68,19 @@ class Game
       check = @moves[i[0]] + @moves[i[1]] + @moves[i[2]]
       next unless check == "xxx" || check == "ooo"
       switch_player
-      @game_over = true
+      @game_over = set_win_message
     end
+  end
+
+  def set_win_message
+    player = @turn[:player] == 'c' ? "COMPUTER" : "PLAYER"
+    choice = @turn[:choice].upcase
+    "#{player} - #{choice} - WINS"
   end
 
   def board_full
     if !@moves.join.include?("-")
-      @game_over = true
+      @game_over = "DRAW"
     end
   end
 end

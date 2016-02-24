@@ -47,6 +47,6 @@ describe Game do
     game.player_move(1)
     game.player_move(4)
     game.player_move(2)
-    expect(game.game_over).to be(true)
+    expect(game.game_over).to eq("PLAYER - X - WINS")
   end
 end

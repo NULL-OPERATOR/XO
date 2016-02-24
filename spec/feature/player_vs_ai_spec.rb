@@ -25,12 +25,12 @@ feature "human vs ai game mechanics: " do
     end
     find('#continue-btn').click
     expect(page).to have_content("GAME OVER")
-    # expect(page).to have_content("COMPUTER X WINS")
+    expect(page).to have_content("COMPUTER - X - WINS")
   end
 
   scenario "computer draw" do
     # [4,2,6,5].each do |i|
-  
+
     # find('#continue-btn').click
     # expect(page).to have_content("GAME OVER")
     # expect(page).to have_content("COMPUTER X WINS")

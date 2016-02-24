@@ -22,13 +22,13 @@ feature "human vs human game mechanics: " do
     win = [1,0,4,3,7]
     win.each{ |i| find("#square-#{i}").click }
     expect(page).to have_content("GAME OVER")
-    # expect(page).to have_content("PLAYER 1 WINS")
+    expect(page).to have_content("PLAYER - O - WINS")
   end
 
   scenario "draw" do
     draw = [0,1,2,4,3,5,7,6,8]
     draw.each{ |i| find("#square-#{i}").click }
-    # expect(page).to have_content("DRAW")
+    expect(page).to have_content("DRAW")
   end
 
 end

@@ -7,31 +7,55 @@ html {
 
 body{
   font-family: Montserrat;
-  background: linear-gradient( to bottom right, rgba(211, 18, 80, 0.69), rgba(50, 149, 168, 0.84));
-  background-image: linear-gradient(rgba(86, 0, 255, 0.06) 56%, rgba(4, 255, 0, 0.38) 58%);
-  background-size: 1px 3px;
-  /*background-repeat: no-repeat;*/
-  /*background-size: cover;*/
+  background: #0E051F;
   text-align: center;
+  color: #00FFEC;
 }
 
 select, button {
+  color: #00FFEC;
   background: none;
   outline: none;
+  font-family: Montserrat;
   font-size: 1em;
+}
+
+button {
+  margin-top: 6px;
+  border: 2px solid;
+}
+
+.dropdown .dropdown-select:focus {
+  color: pink;
+}
+
+.dropdown .dropdown-select > option {
+  background: orange;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+}
+
+
+.dropdown-select {
+  max-width: 100%;
+  background-color: rgba(191, 191, 191, 0.11);
+  border: 0px;
+  border-radius: 5px;
+  height: 1.2em;
+  font-size: 18px;
+  font-weight: bolder;
+  color: #FF00B8;
 }
 
 .square {
   text-decoration: none;
-  color: darkmagenta;
+  color: #35B9AF;
   line-height: 1;
   font-size: 63px;
   display: inline-block;
-  background: rgba(0, 0, 0, .05);
+  background: rgba(132, 77, 162, 0.05);
   border: rgba(0, 0, 0, .8);
   width: 1em;
   height: 1em;
-  margin: 0px;
 }
 
 .board {
@@ -39,23 +63,3 @@ select, button {
   display: inline-block;
   padding-top: 35px;
 }
-
-.board-container {
-}
-
-
-/*.glitch{
-  color:#000;
-  font-size:60px;
-  position:absolute;
-  margin:0 auto;
-  text-align:center;
-}*/
-
-/*.square_glitch{
-  background: url(http://cl.ly/image/3S0x440w3g2H/glitch.gif);
-  -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}*/
