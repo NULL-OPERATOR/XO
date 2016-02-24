@@ -60,7 +60,8 @@ class Game
   end
 
   def game_over_check
-    board_full || winning_move
+    winning_move
+    board_full unless @game_over
   end
 
   def winning_move

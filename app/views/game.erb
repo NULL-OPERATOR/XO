@@ -4,10 +4,8 @@
       <a class="btn square"><%= square %></a>
       <% end %>
     </div>
-    <br>
-    GAME OVER
-    <br>
-    <%= @game.game_over %>
+    <p class="first-msg">GAME OVER</p>
+    <p id="game-over-msg"><%= @game.game_over %></p>
 
 <% elsif @game.ai_next? %>
   <div class="board">
@@ -15,7 +13,7 @@
     <a id=<%= "square-#{index}" %> class="btn square"><%= square %></a>
     <% end %>
   </div>
-  <br>
+  <p class="first-msg">COMPUTER - <%= @game.turn[:choice].upcase %> - TURN</p>
   <form action="/ai_move">
     <button id="continue-btn" type="submit">Continue</button>
   </form>
@@ -26,4 +24,5 @@
     <a id=<%= "square-#{index}" %> class="square" href="/player/<%= index %>"><%= square %></a>
     <% end %>
   </div>
+  <p class="first-msg">PLAYER - <%= @game.turn[:choice].upcase %> - TURN</p>
 <% end %>
