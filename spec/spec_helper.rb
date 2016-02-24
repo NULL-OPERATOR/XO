@@ -3,6 +3,9 @@ require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 
+require 'coveralls'
+Coveralls.wear!
+
 Capybara.app = XO
 
 

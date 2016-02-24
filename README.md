@@ -2,8 +2,9 @@
 
 
 # XO
+<img src="app/public/img/2.png" alt="XO start" style="width: 280px;"/> <img src="app/public/img/3.png" alt="XO win" style="width: 280px;"/>
 
-<!-- [**To run**](#to-run) | [**Tests**](#tests) |  -->
+
 An *unbeatable Tic-Tac-Toe (Noughts and Crosses) program.
 
 
@@ -59,6 +60,13 @@ http://localhost:9292
 As this was new territory for me, I started by looking into the game itself, the strategies involved in winning and playing a perfect game. I started to branch into researching game theory/game trees/ai/etc and decided to just use the [**Strategy**][strategy] from wikipedia, and to build it up from there.
 
 I used ruby, as I am currently more comfortable in it than anything else. I was confident I could have something up quickly that could be refactored, and iterated over, while figuring out how to design the ai. the logic/design of the ai isn't very elegant, but it works! haha.
+
+Current CLasses:
+- **AI** (all decisions made by the computer)
+- **Game setup** (setting up the game with the players)
+- **Game** (all key aspects of the game itself)
+- **Grid**       (separated as I planned to expand the grid size)
+- **Rules**     (to give the possibility to add different game modes)
 
 ## Tests
 are written in [**RSpec**][rspec], and [**Capybara**][capybara].

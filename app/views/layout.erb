@@ -5,29 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>XO</title>
     <link href="/css/style.css" rel="stylesheet">
-    <!-- <link href="/css/bootstrap.min.css" rel="stylesheet"> -->
   </head>
 
   <body>
-    <div class="square_glitch">
       <h1>XO</h1>
-      <br>
       <form class="dropdown" action="/new" method="post">
-        <!-- Mode: -->
         <br>
         <select name="players" class="dropdown-select">
           <option selected disabled>Choose mode</option>
-          <option value="c,x,p,o">Computer (X)    vs    Player (O)</option>
           <option value="p,x,c,o">Player 1 (X)    vs    Computer (O)</option>
+          <option value="p,o,c,x">Player 1 (O)    vs    Computer (X)</option>
           <option value="p,x,p,o">Player 1 (X)    vs    Player 2 (O)</option>
           <option value="p,o,p,x">Player 1 (O)    vs    Player 2 (X)</option>
-          <option value="p,o,c,x">Player 1 (O)    vs    Computer (X)</option>
+          <option value="c,x,p,o">Computer (X)    vs    Player (O)</option>
           <option value="c,x,c,o">Computer 1 (X)  vs  Computer 2 (O)</option>
           <option value="c,o,c,x">Computer 1 (O)  vs  Computer 2 (X)</option>
         </select>
         <button type="submit" class="btn">NEW</button>
       </form>
-    </div>
     <%= yield %>
   </body>
 
