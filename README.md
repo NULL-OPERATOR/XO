@@ -4,7 +4,7 @@
 # XO
 view a live demo [**here**][here]
 
-<img src="app/public/img/2.png" alt="XO start" style="width: 280px;"/> <img src="app/public/img/3.png" alt="XO win" style="width: 280px;"/>
+<img src="app/public/img/2.png" alt="XO start" style="width: 280px;height:358px"/> <img src="app/public/img/3.png" alt="XO win" style="width: 280px;height:358px"/>
 
 
 An *unbeatable Tic-Tac-Toe (Noughts and Crosses) program.
