@@ -6,8 +6,8 @@ describe Game do
   let(:grid)    { class_double("Grid", whole_grid: [0,1,2,3,4,5,6,7,8]) }
   let(:rules)   { class_double("Rules", win_conditions: win_conditions)}
   let(:ai)      { class_double("AI", new: true) }
-  let(:players) { ['p','x','p','o'] }
-  let(:moves)   { Array.new(9) { "-"} }
+  let(:players) { [:p,:x,:p,:o] }
+  let(:moves)   { Array.new(9) { :- } }
   let(:player1) { { player: players[0], choice: players[1], win: false} }
 
   it "should initialize an array of empty moves, of grid length" do
@@ -24,7 +24,7 @@ describe Game do
 
   it "should be able to make a move and store it" do
     game.player_move(1)
-    expect(game.moves[1]).to eq('x')
+    expect(game.moves[1]).to eq(:x)
   end
 
   it "should not change moves if the move is taken" do

@@ -1,8 +1,11 @@
+require_relative "rules"
+
 class AI
-  def initialize(grid, win_moves)
-    @grid = grid
-    @win_moves = win_moves
-    @opposite_corners = @grid.corners.reverse
+  def initialize(rules = Rules)
+    @win_moves = Rules.win_conditions
+    @edges = [1,3,5,7]
+    @corners = [0,2,6,8]
+    @opposite_corners = @corners.reverse
   end
 
   def move(moves, player)
@@ -81,7 +84,7 @@ class AI
   end
 
   def corners_taken
-    @grid.corners.count{ |x| @moves[x] == :x || @moves[x] == :o}
+    @corners.count{ |x| @moves[x] == :x || @moves[x] == :o}
   end
 
   def center
@@ -89,7 +92,7 @@ class AI
   end
 
   def opposite_corner
-    @grid.corners.each.with_index do |corner, index|
+    @corners.each.with_index do |corner, index|
       possible_move = @opposite_corners[index]
       next if move_free?(corner)
       next if !move_free?(possible_move)
@@ -99,11 +102,11 @@ class AI
   end
 
   def empty_corner
-    search_array(@grid.corners)
+    search_array(@corners)
   end
 
   def empty_side
-    search_array(@grid.edges)
+    search_array(@edges)
   end
 
   def search_array(arr)

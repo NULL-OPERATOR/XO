@@ -8,21 +8,24 @@ class XO < Sinatra::Base
   use Rack::Session::Pool
 
   get '/' do
+    session[:setup] = GameSetup.new
     erb :index
   end
 
   post '/new' do
-    redirect '/' if params[:players] == nil
-
-    setup = GameSetup.new
-    players = params[:players].split(",").map{ |x| x.to_sym }
-    session[:game] = setup.new_game(players)
+    players = params[:players]
+    redirect '/' if players == nil
+    session[:game] = session[:setup].new_game(players)
     redirect '/game'
   end
 
   get '/game' do
-    redirect '/' unless session[:game]
-    @game = session[:game]
+    game = session[:game]
+    redirect '/' unless game
+    @over    = game.over
+    @ai_next = game.ai_next?
+    @moves   = game.moves
+    @turn    = game.current_turn
     erb :game
   end
 

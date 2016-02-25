@@ -1,28 +1,28 @@
-<% if @game.game_over  %>
+<% if @over  %>
     <div class="board">
-      <% @game.moves.each do |square| %>
-      <a class="btn square"><%= square %></a>
+      <% @moves.each do |square| %>
+      <a class="btn square"><%= square.to_s %></a>
       <% end %>
     </div>
     <p class="first-msg">GAME OVER</p>
-    <p id="game-over-msg"><%= @game.game_over %></p>
+    <p id="game-over-msg"><%= @over %></p>
 
-<% elsif @game.ai_next? %>
+<% elsif @ai_next %>
   <div class="board">
-    <% @game.moves.each.with_index do |square, index| %>
-    <a id=<%= "square-#{index}" %> class="btn square"><%= square %></a>
+    <% @moves.each.with_index do |square, index| %>
+    <a id=<%= "square-#{index}" %> class="btn square"><%= square.to_s %></a>
     <% end %>
   </div>
-  <p class="first-msg">COMPUTER - <%= @game.turn[:choice].upcase %> - TURN</p>
+  <p class="first-msg">COMPUTER - <%= @turn %> - TURN</p>
   <form action="/ai_move">
     <button id="continue-btn" type="submit">Continue</button>
   </form>
 
 <% else %>
   <div class="board">
-    <% @game.moves.each.with_index do |square, index| %>
-    <a id=<%= "square-#{index}" %> class="square" href="/player/<%= index %>"><%= square %></a>
+    <% @moves.each.with_index do |square, index| %>
+    <a id=<%= "square-#{index}" %> class="square" href="/player/<%= index %>"><%= square.to_s %></a>
     <% end %>
   </div>
-  <p class="first-msg">PLAYER - <%= @game.turn[:choice].upcase %> - TURN</p>
+  <p class="first-msg">PLAYER - <%= @turn %> - TURN</p>
 <% end %>

@@ -1,44 +1,46 @@
+
 class Game
-  attr_reader :moves, :turn, :p1, :game_over
-  def initialize(grid, rules, players, ai)
-    setup_game_status(grid, rules)
-    setup_player_status(players)
-    @ai = ai.new(grid, @win_moves)
+  attr_reader :moves, :turn
+
+  def initialize(game_over, players, ai)
+    @game_over = game_over
+    @moves = Array.new(9) { :- }
+    @players = players
+    @turn = @players[0]
+    @ai = ai
   end
 
   def player_move(move)
     return unless move_available?(move)
     make_player_move(move)
     switch_player
-    game_over_check
   end
 
   def ai_move
     make_ai_move
     switch_player
-    game_over_check
   end
 
   def ai_next?
     @turn[:player] == :c
   end
 
+  def over
+    @game_over.check(@moves, @turn, pvp?)
+  end
+
+  def switch_player
+    @turn == @players[0] ? @turn = @players[1] : @turn = @players[0]
+  end
+
+  def current_turn
+    @turn[:choice].to_s.upcase
+  end
+
   private
 
-  def setup_player_status(players)
-    @p1 = { player: players[0], choice: players[1], win: false}
-    @p2 = { player: players[2], choice: players[3], win: false}
-    @turn = @p1
-  end
-
-  def setup_game_status(grid, rules)
-    @win_moves = rules.win_conditions
-    @moves = setup_moves(grid)
-  end
-
-  def setup_moves(grid)
-    grid_size = grid.whole_grid.length
-    Array.new(grid_size) { :- }
+  def pvp?
+    (@players[0][:choice] == :p) && (@players[1][:choice] == :p)
   end
 
   def move_available?(move)
@@ -55,33 +57,4 @@ class Game
     @moves[move] = choice
   end
 
-  def switch_player
-    @turn == @p1 ? @turn = @p2 : @turn = @p1
-  end
-
-  def game_over_check
-    winning_move
-    board_full unless @game_over
-  end
-
-  def winning_move
-    @win_moves.each do |i|
-      check = [@moves[i[0]], @moves[i[1]], @moves[i[2]]].join
-      next unless check == "xxx" || check == "ooo"
-      switch_player
-      @game_over = set_win_message
-    end
-  end
-
-  def set_win_message
-    player = @turn[:player] == :c ? "COMPUTER" : "PLAYER"
-    choice = @turn[:choice].upcase
-    "#{player} - #{choice} - WINS"
-  end
-
-  def board_full
-    if @moves.count(:-) == 0
-      @game_over = "DRAW"
-    end
-  end
 end
