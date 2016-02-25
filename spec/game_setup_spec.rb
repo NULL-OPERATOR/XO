@@ -1,23 +1,19 @@
 require_relative "../app/models/game_setup"
 
 describe GameSetup do
-  let(:grid)    { class_double("Grid") }
-  let(:rules)   { class_double("Rules") }
-  let(:ai)      { class_double("AI") }
+  let(:ai)      { spy("AI") }
+  let(:game_over) { spy("GameOver") }
   let(:game)    { spy("Game") }
-  let(:setup)   { described_class.new(game, grid, rules, ai) }
-  let(:players) { instance_double("players") }
+  let(:setup)   { described_class.new(game, game_over, ai) }
+  let(:players) { "p,x,p,o" }
 
   it "should initialize with a game" do
     expect(setup.game).to eq(game)
   end
 
-  it "should initialize with a grid" do
-    expect(setup.grid).to eq(grid)
-  end
-
-  it "should initialize with rules" do
-    expect(setup.rules).to eq(rules)
+  it "should initialize an ai" do
+    new_setup = GameSetup.new(game, game_over, ai)
+    expect(ai).to have_received(:new)
   end
 
   it "should initialize a game" do

@@ -26,7 +26,7 @@ class Game
   end
 
   def over
-    @game_over.check(@moves, @turn, pvp?)
+    @game_over.check(@moves, @players, @turn)
   end
 
   def switch_player
@@ -39,9 +39,9 @@ class Game
 
   private
 
-  def pvp?
-    (@players[0][:choice] == :p) && (@players[1][:choice] == :p)
-  end
+  # def pvp?
+  #   (@players[0][:choice] == :p) && (@players[1][:choice] == :p)
+  # end
 
   def move_available?(move)
     @moves[move] == :-

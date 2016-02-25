@@ -8,9 +8,9 @@ class AI
     @opposite_corners = @corners.reverse
   end
 
-  def move(moves, player)
+  def move(moves, choice)
     @moves = moves
-    @player = player
+    @choice = choice
     win || block || block_forks || create_fork || center ||
     opposite_corner || empty_corner || empty_side
   end
@@ -21,26 +21,26 @@ class AI
     @moves[move] == :-
   end
 
-  def swap_player
-    @player == :x ? :o : :x
+  def swap_choice
+    @choice == :x ? :o : :x
   end
 
   def win
-    find_winner(@player)
+    find_winner(@choice)
   end
 
   def block
-    find_winner(swap_player)
+    find_winner(swap_choice)
   end
 
-  def find_winner(player)
+  def find_winner(choice)
     @win_moves.each do |move|
       actual = get_actual(move)
       actual.each.with_index do |letter, index|
         check = actual.clone
         next if letter != :-
-        check[index] = player
-        return move[index] if check.count(player) == 3
+        check[index] = choice
+        return move[index] if check.count(choice) == 3
       end
     end
     nil
@@ -68,7 +68,7 @@ class AI
   end
 
   def block_fork_1
-    return empty_side if (corners_taken == 2) && (@moves[4] == @player)
+    return empty_side if (corners_taken == 2) && (@moves[4] == @choice)
   end
 
   def block_fork_2

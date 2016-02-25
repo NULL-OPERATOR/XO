@@ -2,11 +2,7 @@ require_relative "../app/models/ai"
 
 describe AI do
   win_moves    = [[0,1,2],[0,3,6],[0,4,8],[3,4,5],[6,7,8],[2,5,8],[1,4,7],[2,4,6]]
-  whole_grid   = [0,1,2,3,4,5,6,7,8]
-  grid_corners = [0,2,6,8]
-  grid_edges   = [1,3,5,7]
-  let(:ai)    { described_class.new(grid, win_moves) }
-  let(:grid)  { class_double("Grid", whole_grid: whole_grid, corners: grid_corners, edges: grid_edges) }
+  let(:ai)    { described_class.new(win_moves) }
   let(:rules) { class_double("Rules", win_conditions: win_conditions)}
 
   context "winning moves: " do

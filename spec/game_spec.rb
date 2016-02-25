@@ -1,25 +1,38 @@
 require_relative "../app/models/game"
 
 describe Game do
-  win_conditions = [[0,1,2],[0,3,6],[0,4,8],[3,4,5],[6,7,8],[2,5,8],[1,4,7],[2,4,6]]
-  let(:game)    { described_class.new(grid, rules, players, ai) }
-  let(:grid)    { class_double("Grid", whole_grid: [0,1,2,3,4,5,6,7,8]) }
-  let(:rules)   { class_double("Rules", win_conditions: win_conditions)}
-  let(:ai)      { class_double("AI", new: true) }
-  let(:players) { [:p,:x,:p,:o] }
+  let(:game)    { described_class.new(game_over, players, ai) }
+  let(:game_over) { instance_double("GameOver", check: true) }
+  let(:ai)      { instance_double("AI", move: 2) }
+  let(:players) { [player1, player2] }
   let(:moves)   { Array.new(9) { :- } }
-  let(:player1) { { player: players[0], choice: players[1], win: false} }
+  let(:player1) { { player: :p, choice: :x } }
+  let(:player2) { { player: :p, choice: :o } }
 
   it "should initialize an array of empty moves, of grid length" do
     expect(game.moves).to eq(moves)
   end
 
-  it "should set up a player" do
-    expect(game.p1).to eq(player1)
+  # it "should set up a player" do
+  #   expect(game.p1).to eq(player1)
+  # end
+  #
+  # it "should set the current turn to be player1's" do
+  #   expect(game.turn).to eq(player1)
+  # end
+  it "should be able to switch a player" do
+    game.switch_player
+    expect(game.turn).to eq(player2)
   end
 
-  it "should set the current turn to be player1's" do
-    expect(game.turn).to eq(player1)
+  it "shoud check if the ai is next" do
+    new_players = [ { player: :c, choice: :x }, player2 ]
+    new_game = Game.new(game_over, new_players, ai)
+    expect(new_game.ai_next?).to be(true)
+  end
+
+  it "should call game_over to check if the game is over" do
+    expect(game.over).to be(true)
   end
 
   it "should be able to make a move and store it" do
@@ -37,16 +50,18 @@ describe Game do
     expect(game.turn).not_to be(player1)
   end
 
-  it "should set the initial win status of a player to false" do
-    expect(game.p1[:win]).to be(false)
+  it "should be able to make an ai move" do
+    # allow(game_over).to receive(:check).and_return(3)
+    game.ai_move
+    expect(game.moves[2]).to eq(:x)
   end
 
-  it "should be able to win a game" do
-    game.player_move(0)
-    game.player_move(3)
-    game.player_move(1)
-    game.player_move(4)
-    game.player_move(2)
-    expect(game.game_over).to eq("PLAYER - X - WINS")
-  end
+  # it "should be able to win a game" do
+  #   game.player_move(0)
+  #   game.player_move(3)
+  #   game.player_move(1)
+  #   game.player_move(4)
+  #   game.player_move(2)
+  #   expect(game.game_over).to eq("PLAYER - X - WINS")
+  # end
 end

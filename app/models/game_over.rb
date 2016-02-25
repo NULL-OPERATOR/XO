@@ -5,34 +5,40 @@ class GameOver
     @win_moves = Rules.win_conditions
   end
 
-  def check(moves, turn, pvp)
-    winning_move(moves, turn, pvp) || board_full(moves)
+  def check(moves, players, turn)
+    @turn = turn
+    @players = players
+    @moves = moves
+    winning_move || board_full
   end
 
-  def winning_move(moves, turn, pvp)
-    @win_moves.each do |i|
-      next unless winner?(moves, i)
-      return message(turn, pvp)
+  private
+
+  def winning_move
+    @win_moves.each do |move|
+      next unless winner?(move)
+      swap_players
+      return message
     end
     nil
   end
 
-  def winner?(moves, i)
-    check = [moves[i[0]], moves[i[1]], moves[i[2]]].join
+  def winner?(move)
+    check = [@moves[move[0]], @moves[move[1]], @moves[move[2]]].join
     check == "xxx" || check == "ooo"
   end
 
-  def board_full(moves)
-    return "DRAW" if moves.count(:-) == 0
+  def board_full
+    return "DRAW" if @moves.count(:-) == 0
   end
 
-  def message(turn, pvp)
-    if pvp
-      player = "PLAYER"
-    else
-      player = turn[:player] == :p ? "COMPUTER" : "PLAYER"
-    end
-    choice = turn[:choice] == :x ? "O" : "X"
+  def swap_players
+    @turn = @turn == @players[0] ? @players[1] : @players[0]
+  end
+
+  def message
+    player = @turn[:player] == :p ? "PLAYER" : "COMPUTER"
+    choice = @turn[:choice].upcase
     "#{player} - #{choice} - WINS"
   end
 
