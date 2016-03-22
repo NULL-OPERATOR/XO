@@ -28,7 +28,7 @@ class GameNode < Node
   end
 
   def current_choice
-    turn[:choice].to_s.upcase
+    turn[:choice].upcase
   end
 
   private
@@ -42,7 +42,7 @@ class GameNode < Node
 
   def ai_move
     return 0 if board_empty?
-    ai.make_move(self, turn[:choice])
+    ai.move(self, turn[:choice])
   end
 
   def board_empty?

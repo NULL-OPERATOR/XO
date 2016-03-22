@@ -4,23 +4,22 @@ class AI
     @max = :x
   end
 
-  def make_move(node, player)
+  def move(node, player)
     @max = player
     minimax(node, player)
   end
 
   private
 
-  attr_reader :max
+  attr_reader :max, :node_class
 
   def minimax(node, player, depth=0)
-    return node_value(node.winner, depth,player) if node.winner#  || depth == 0
+    return node_value(node.winner, depth,player) if node.winner #  || depth == 0
     values = []
-    moves = node.moves
-    moves.each.with_index do |space, move|
-      next if space != :-
+    node.moves.each.with_index do |choice, move|
+      next if choice != :-
       value = minimax(
-        leaf_node(moves.clone, player, move),
+        leaf_node(node.moves.clone, player, move),
         switch_player(player),
         depth - 1)
       values << [move, value]
@@ -29,7 +28,7 @@ class AI
   end
 
   def leaf_node(moves, player, move)
-    leaf = @node_class.new(moves: moves)
+    leaf = node_class.new(moves: moves)
     leaf.make_move(player, move)
     leaf
   end
@@ -37,7 +36,7 @@ class AI
   def node_value(winner, depth, player)
      return 0 if winner == :draw
      player == max ? -10 :  10
-   end
+  end
 
   def best_node(values, depth, player)
     value = max_or_min_value(values, player)
