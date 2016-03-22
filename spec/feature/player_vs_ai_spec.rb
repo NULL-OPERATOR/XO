@@ -25,7 +25,7 @@ feature "human vs ai game mechanics: " do
   end
 
   scenario "computer draw" do
-    [4,1,3,8].each do |i|
+    [4,2,3,8].each do |i|
       find('#continue-btn').click
       find("#square-#{i}").click
     end
