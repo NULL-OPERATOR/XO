@@ -21,10 +21,10 @@ class XO < Sinatra::Base
   get '/game' do
     game = session[:game]
     redirect '/' unless game
-    @over    = game.winner
+    @winner  = game.winner
     @ai_next = game.ai_next?
     @moves   = game.moves
-    @choice    = game.current_choice
+    @choice  = game.current_choice
     erb :game
   end
 

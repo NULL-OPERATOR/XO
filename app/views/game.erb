@@ -1,11 +1,11 @@
-<% if @over  %>
+<% if @winner  %>
     <div class="board">
       <% @moves.each do |square| %>
       <a class="btn square"><%= square.to_s %></a>
       <% end %>
     </div>
     <p class="first-msg">GAME OVER</p>
-    <p id="game-over-msg"><%= @over %></p>
+    <p id="game-over-msg"><%= @winner == :draw ? "DRAW" : "#{@winner.upcase} WINS" %></p>
 
 <% elsif @ai_next %>
   <div class="board">

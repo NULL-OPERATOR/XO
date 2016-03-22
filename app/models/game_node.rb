@@ -41,7 +41,7 @@ class GameNode < Node
   end
 
   def ai_move
-    # return 0 if board_empty?
+    return 0 if board_empty?
     ai.make_move(self, turn[:choice])
   end
 
