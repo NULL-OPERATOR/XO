@@ -1,10 +1,9 @@
-require_relative "../app/models/game_setup"
+require_relative "../app/models/game_factory"
 
-describe GameSetup do
+describe GameFactory do
+  let(:game_factory) { described_class.build(players) }
   let(:ai)      { spy("AI") }
-  let(:game_over) { spy("GameOver") }
-  let(:game)    { spy("Game") }
-  let(:setup)   { described_class.new(game, game_over, ai) }
+  let(:game)    { spy("GameNode") }
   let(:players) { "p,x,p,o" }
 
   it "should initialize with a game" do

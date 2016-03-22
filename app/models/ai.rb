@@ -1,116 +1,89 @@
-require_relative "rules"
-
 class AI
-  def initialize(rules = Rules)
-    @win_moves = Rules.win_conditions
-    @edges = [1,3,5,7]
-    @corners = [0,2,6,8]
-    @opposite_corners = @corners.reverse
+  def initialize(args = {})
+    @node_class = args[:node] || Node
+    @max = :x
   end
 
-  def move(moves, choice)
-    @moves = moves
-    @choice = choice
-    win || block || block_forks || create_fork || center ||
-    opposite_corner || empty_corner || empty_side
+  def make_move(node, player)
+    @max = player
+    minimax(node, player)
   end
 
   private
 
-  def move_free?(move)
-    @moves[move] == :-
-  end
+  attr_reader :max
 
-  def swap_choice
-    @choice == :x ? :o : :x
-  end
-
-  def win
-    find_winner(@choice)
-  end
-
-  def block
-    find_winner(swap_choice)
-  end
-
-  def find_winner(choice)
-    @win_moves.each do |move|
-      actual = get_actual(move)
-      actual.each.with_index do |letter, index|
-        check = actual.clone
-        next if letter != :-
-        check[index] = choice
-        return move[index] if check.count(choice) == 3
-      end
+  def minimax(node, player, depth=0)
+    return node_value(node.winner, depth,player) if node.winner#  || depth == 0
+    values = []
+    moves = node.moves
+    moves.each.with_index do |space, move|
+      next if space != :-
+      leaf_node = setup_leaf_node(moves.clone, player, move)
+      value = minimax(leaf_node, switch_player(player), depth - 1)
+      values << [move, value]
     end
-    nil
+    best_node(values, depth, player)
   end
 
-  def get_actual(move)
-    [ @moves[move[0]], @moves[move[1]], @moves[move[2]] ]
+  def setup_leaf_node(moves, player, move)
+    leaf = @node_class.new(moves: moves)
+    leaf.make_move(player, move)
+    leaf
   end
 
-  def create_fork
-    count_moves == 2 ? fork_1 || fork_2 : nil
+  def node_value(winner, depth, player)
+     return 0 if winner == :draw
+     player == max ? -10 :  10
+   end
+
+  def best_node(values, depth, player)
+    best = player == max ? values.max_by(&:last) : values.min_by(&:last)
+    depth == 0 ? best.first : best.last
   end
 
-  def fork_1
-    return opposite_corner if corners_taken >= 1 && !move_free?(4)
+  def switch_player(player)
+    player == :x ? :o : :x
   end
 
-  def fork_2
-    return 3 if !move_free?(1)
-    return 1 if !move_free?(3)
-  end
-
-  def block_forks
-    count_moves == 3 ? block_fork_1 || block_fork_2 : nil
-  end
-
-  def block_fork_1
-    return empty_side if (corners_taken == 2) && (@moves[4] == @choice)
-  end
-
-  def block_fork_2
-    return 8 if moves_taken?(5,7) || moves_taken?(2,7) || moves_taken?(5,6)
-  end
-
-  def moves_taken?(move1, move2)
-    !move_free?(move1) && !move_free?(move2)
-  end
-
-  def count_moves
-    @moves.count{ |c| c == :x || c == :o}
-  end
-
-  def corners_taken
-    @corners.count{ |x| @moves[x] == :x || @moves[x] == :o}
-  end
-
-  def center
-    move_free?(4) && count_moves >= 1 ? 4 : nil
-  end
-
-  def opposite_corner
-    @corners.each.with_index do |corner, index|
-      possible_move = @opposite_corners[index]
-      next if move_free?(corner)
-      next if !move_free?(possible_move)
-      return possible_move
-    end
-    nil
-  end
-
-  def empty_corner
-    search_array(@corners)
-  end
-
-  def empty_side
-    search_array(@edges)
-  end
-
-  def search_array(arr)
-    arr.each{ |i| return i if move_free?(i) }
-    nil
-  end
 end
+#
+#   def minimax(node, depth, player)
+#     values = []
+#
+#     return node_value(node.winner, depth) if node.winner || depth == 0
+#
+#     node.moves.each.with_index do |space, move|
+#       next if space != :-
+#       moves = node.moves.clone
+#       node2 = @node_class.new(moves: moves)
+#       node2.make_move(player, move)
+#       p "depth #{depth}"
+#       # d = -1 * minimax(node2, depth + 1, switch_player(player))
+#       d = minimax(node2, depth - 1, switch_player(player))
+#
+#       values << [move, d]
+#       # node.moves[move] = :-
+#     end
+#     p values
+#     best_node(values, depth, player)
+#   end
+#
+#   def node_value(winner, depth)
+#     return 0 if winner == :draw
+#     winner == @max ?  10 - depth : depth - 10
+#   end
+#
+#   def best_node(values, depth, player)
+#     best = player == @max ? values.max_by(&:last) : values.min_by(&:last)
+#     p "best #{best}"
+#     p "depth #{depth}"
+#     p best.first
+#     depth == @depth ? best.first : best.last
+#   end
+#
+#   def switch_player(player)
+#     player == :x ? :o : :x
+#   end
+#
+# end

@@ -13,8 +13,8 @@
     <a id=<%= "square-#{index}" %> class="btn square"><%= square.to_s %></a>
     <% end %>
   </div>
-  <p class="first-msg">COMPUTER - <%= @turn %> - TURN</p>
-  <form action="/ai_move">
+  <p class="first-msg">COMPUTER - <%= @choice %> - TURN</p>
+  <form action="/player/0">
     <button id="continue-btn" type="submit">Continue</button>
   </form>
 
@@ -24,5 +24,5 @@
     <a id=<%= "square-#{index}" %> class="square" href="/player/<%= index %>"><%= square.to_s %></a>
     <% end %>
   </div>
-  <p class="first-msg">PLAYER - <%= @turn %> - TURN</p>
+  <p class="first-msg">PLAYER - <%= @choice %> - TURN</p>
 <% end %>
