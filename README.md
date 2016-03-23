@@ -63,12 +63,19 @@ As this was new territory for me, I started by looking into the game itself, the
 
 I used ruby, as I am currently more comfortable in it than anything else. I was confident I could have something up quickly that could be refactored, and iterated over, while figuring out how to design the ai. the logic/design of the ai isn't very elegant, but it works! haha.
 
-Current CLasses:
-- **AI** (all decisions made by the computer)
-- **Game setup** (setting up the game with the players)
-- **Game** (all key aspects of the game itself)
-- **Grid**       (separated as I planned to expand the grid size)
-- **Rules**     (to give the possibility to add different game modes)
+*Update
+
+the game now implements the [*minimax algorithm*][minimax], I began with the pseudocode, however it altered over the course of writing it in ruby, so it doesn't strictly follow the pseudocode, but works in a very similar way.
+
+
+I played with adding a controlled depth, and aplha-beta pruning (extensions of minmiax that reduce the computation needed), but decided to stick with a naïve style.
+
+
+Current Classes:
+- **Node** - basic game functions, ie/ moves made/status/adding a move
+- **AI**  - minimax implementation, using the node class to create a game tree
+- **Game Factory** - setting up the game with the players & instantiated classes
+- **Game** - adds player/ai moves, then making moves via node class
 
 ## Tests
 are written in [**RSpec**][rspec], and [**Capybara**][capybara].
@@ -78,6 +85,7 @@ To run the tests: (this will run both feature and unit tests)
 $ rspec
 ```
  [here]: https://xo-rj.herokuapp.com
+ [minimax]: hhttps://en.wikipedia.org/wiki/Minimax
  [strategy]: https://en.wikipedia.org/wiki/Tic-tac-toe#Strategy
  [rspec]: http://rspec.info/
  [capybara]: https://github.com/jnicklas/capybara
