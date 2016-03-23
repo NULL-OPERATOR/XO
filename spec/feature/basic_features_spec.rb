@@ -14,7 +14,7 @@ feature "basic setup" do
   end
 
   scenario "can select a mode and start a game" do
-    find('.dropdown-select').find("option[value='p,o,p,x']").select_option
+    find('.dropdown-select').find("option[value='player,o,player,x']").select_option
     click_button('NEW')
     expect(current_path).to eq('/game')
   end

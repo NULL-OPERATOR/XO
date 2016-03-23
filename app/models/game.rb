@@ -9,7 +9,7 @@ class Game
   end
 
   def game_move(move)
-    return if (!ai_next? && !game_node.move_available?(move))
+    return if player_move_taken?(move)
     ai_next? ? ai_move : player_move(move)
     switch_player
   end
@@ -35,8 +35,8 @@ class Game
   attr_reader :ai, :game_node
   attr_writer :turn
 
-  def player_move_free?(move)
-    game_node.move_available?(move) && !ai_next?
+  def player_move_taken?(move)
+    !ai_next? && !game_node.move_available?(move)
   end
 
   def player_move(move)

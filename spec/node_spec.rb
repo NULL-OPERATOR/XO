@@ -4,7 +4,7 @@ describe Node do
   let(:node) { described_class.new(moves: moves) }
   let(:moves) { Array.new(9) { :- } }
 
-  it "should be able to make a move and store it" do
+  it "makes a move and stores it" do
     node.make_move(:x, 1)
     expect(node.moves[1]).to eq(:x)
   end
@@ -14,6 +14,10 @@ describe Node do
       node.make_move(:x, i)
     end
     expect(node.winner).to be :x
+  end
+
+  it "checks if a move is free" do
+    expect(node.move_available?(3)).to be true
   end
 
   it "set the winner as draw if board is full" do

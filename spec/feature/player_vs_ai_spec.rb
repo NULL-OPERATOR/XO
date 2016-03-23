@@ -1,7 +1,7 @@
 require_relative "feature_helper"
 
 feature "human vs ai game mechanics: " do
-  setup_game("[value='c,x,p,o']")
+  setup_game("[value='computer,x,player,o']")
 
   scenario "computer begins, click to continue" do
     expect(page).to have_content('Continue')

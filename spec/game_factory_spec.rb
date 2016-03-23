@@ -5,7 +5,7 @@ describe GameFactory do
   let(:ai)           { spy("AI") }
   let(:game)         { spy("Game") }
   let(:node)         { spy("Node") }
-  let(:players)      { "p,x,p,o" }
+  let(:players)      { "player,x,player,o" }
 
   it "should initialize an ai" do
     new_setup = GameFactory.build(players, game, ai, node)

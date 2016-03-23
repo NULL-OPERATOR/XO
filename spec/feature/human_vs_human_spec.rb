@@ -1,7 +1,7 @@
 require_relative "feature_helper"
 
 feature "human vs human game mechanics: " do
-  setup_game("[value='p,o,p,x']")
+  setup_game("[value='player,o,player,x']")
 
   scenario "new button redirects to game" do
     expect(current_path).to eq('/game')
