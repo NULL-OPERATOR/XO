@@ -9,17 +9,8 @@ class GameNode < Node
     @turn    = players.first
   end
 
-  def over
-    game_over
-  end
-
   def game_move(move)
-    if ai_next?
-      make_move(turn[:choice], ai_move)
-    else
-      return unless move_available?(move)
-      make_move(turn[:choice], move)
-    end
+    ai_next? ? ai_move : player_move(move)
     switch_player
   end
 
@@ -36,13 +27,18 @@ class GameNode < Node
   attr_reader :ai
   attr_writer :turn
 
-  def move_available?(move)
-    moves[move] == :-
+  def player_move(move)
+    return unless moves[move] == :-
+    make_move(turn[:choice], move)
   end
 
   def ai_move
+    make_move(turn[:choice], make_ai_move)
+  end
+
+  def make_ai_move
     return 0 if board_empty?
-    ai.move(self, turn[:choice])
+    move = ai.move(self, turn[:choice])
   end
 
   def board_empty?
@@ -51,6 +47,6 @@ class GameNode < Node
 
   def switch_player
     p1, p2 = players
-    @turn == p1 ? @turn = p2 : @turn = p1
+    turn == p1 ? @turn = p2 : @turn = p1
   end
 end

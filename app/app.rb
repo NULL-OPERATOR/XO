@@ -34,11 +34,6 @@ class XO < Sinatra::Base
     redirect '/game'
   end
 
-  # get '/ai_move' do
-  #   session[:game].game_move(move)
-  #   redirect '/game'
-  # end
-
   get '/*' do
     redirect '/'
   end
