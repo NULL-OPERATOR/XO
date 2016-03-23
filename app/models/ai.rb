@@ -1,6 +1,6 @@
 class AI
   def initialize(args = {})
-    @node_class = args[:node] || Node
+    @node_class = args[:node]
     @max_player = :x
   end
 

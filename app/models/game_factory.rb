@@ -1,12 +1,13 @@
 require_relative "ai"
-require_relative "game_node"
+require_relative "game"
+require_relative "node"
 
 class GameFactory
-  def self.build(config, game_node_class = GameNode, ai_class = AI)
-    game_node_class.new(
+  def self.build(config, game_class = Game, ai_class = AI, node_class = Node)
+    game_class.new(
       players: players(config),
-      ai:      ai_class.new,
-      moves:   moves)
+      ai:      ai_class.new(node: node_class),
+      node:    node_class.new(moves: moves))
   end
 
   private

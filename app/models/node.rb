@@ -13,6 +13,10 @@ class Node
     game_over_check(player)
   end
 
+  def move_available?(move)
+    moves[move] == :-
+  end
+
   private
 
   attr_writer :moves, :winner
@@ -39,7 +43,4 @@ class Node
   def check_draw
     @winner = :draw if moves.count(:-) == 0
   end
-
-
-
 end
